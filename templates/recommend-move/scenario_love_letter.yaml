@@ -1,0 +1,34 @@
+# Love Letter - Decisione Tattica
+# Scenario per testare recommend-move task
+
+game: Love Letter
+rules_file: rulebooks/love_letter.txt
+difficulty: easy
+scenario_id: love_letter_01
+
+game_state: |
+  Players: 3 (Alice, Bob, You)
+  Your hand: Guard (1), Countess (7)
+  Discard pile visible: Priest, Baron, Handmaid
+  Alice: Just played Guard, guessed "Princess" against Bob - missed
+  Bob: Protected by Handmaid last turn (protection expired)
+  Cards remaining in deck: approximately 6
+  You must play one card.
+
+expected_analysis: |
+  Key observations:
+  - Countess (7) must be played if you have King or Prince (mandatory rule)
+  - You don't have King or Prince, so you have a choice
+  - Guard (1) lets you guess an opponent's card - if correct, they're eliminated
+  - Countess (7) is high value but has no effect when played
+  - Bob is no longer protected (Handmaid protection lasts only 1 turn)
+  - Alice just missed a guess, giving info that Bob doesn't have Princess
+
+  Strategic reasoning:
+  - Playing Guard against Bob is the aggressive play
+  - Since Alice guessed Princess and missed, Bob likely has a mid-value card
+  - Baron (3) and Prince (5) are reasonable guesses
+  - Keeping Countess for next turn is risky if you draw King/Prince
+
+optimal_move: "Play Guard, target Bob, guess Prince (5)"
+reasoning: "Bob's Handmaid protection expired and Princess was eliminated as a possibility. Prince is a high-value target that Bob might be holding."

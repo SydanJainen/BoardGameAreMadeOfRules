@@ -1,0 +1,94 @@
+# Catan - Resource Trading Decision
+# Scenario per testare recommend-move task
+
+game: Catan (I Coloni di Catan)
+rules_file: rulebooks/catan.pdf
+difficulty: medium
+scenario_id: catan_01
+
+game_state: |
+  Your resources:
+  - Wheat: 3
+  - Ore: 2
+  - Brick: 1
+  - Wood: 0
+  - Sheep: 0
+
+  Building costs reference:
+  - Settlement: 1 Brick + 1 Wood + 1 Wheat + 1 Sheep
+  - City (upgrade): 2 Wheat + 3 Ore
+  - Road: 1 Brick + 1 Wood
+  - Development Card: 1 Wheat + 1 Ore + 1 Sheep
+
+  Your current buildings:
+  - Settlements: 2
+  - Cities: 0
+  - Roads: 3
+  - Development Cards: 0
+
+  Victory points: 2 (from settlements)
+
+  Current turn phase: Trading (before building)
+
+  Other players' approximate resources:
+  - Player A (Anna): Lots of Wood and Sheep (forest/pasture hexes)
+  - Player B (Bruno): Lots of Brick (hill hexes)
+  - Player C (Carla): Balanced, few resources visible
+
+  Special conditions:
+  - Robber is NOT on your hexes
+  - No ports available to you (all 4:1 bank trades)
+  - Longest Road: Currently held by Bruno (5 roads)
+
+expected_analysis: |
+  Building options analysis:
+
+  CITY (2 Wheat + 3 Ore):
+  - Have: 3 Wheat, 2 Ore
+  - Need: 1 more Ore
+  - Cities double resource production from that hex
+  - Worth 2 VP (upgrade from 1 to 2)
+
+  SETTLEMENT (1 each of Brick, Wood, Wheat, Sheep):
+  - Have: 1 Brick, 0 Wood, 3 Wheat, 0 Sheep
+  - Need: 1 Wood, 1 Sheep
+  - Worth 1 VP
+  - Requires road to new location first
+
+  DEVELOPMENT CARD (1 Wheat + 1 Ore + 1 Sheep):
+  - Have: 3 Wheat, 2 Ore, 0 Sheep
+  - Need: 1 Sheep
+  - Chance of Knight, VP card, or progress
+
+  ROAD (1 Brick + 1 Wood):
+  - Have: 1 Brick, 0 Wood
+  - Need: 1 Wood
+  - No immediate VP but enables future settlement
+
+  Most efficient path to points:
+  - City = 1 trade needed (get 1 Ore)
+  - Settlement = 2 resources + road = complex
+  - Dev Card = 1 trade needed (get 1 Sheep)
+
+  Trade analysis:
+  - You have excess Wheat (3, need only 2 for City)
+  - Trade 1 Wheat for 1 Ore with any player
+  - Player C might have Ore
+  - Alternatively, bank trade: 4 Wheat for 1 Ore (inefficient, you only have 3)
+
+optimal_move: "Propose trade: Offer 1 Wheat, request 1 Ore"
+trade_target: "Any player willing to trade, prioritize Player C"
+fallback: "If no players accept, consider offering 2 Wheat for 1 Ore"
+after_trade: "Build City (spend 2 Wheat + 3 Ore)"
+reasoning: |
+  City is the most efficient use of resources:
+  - Only 1 resource away from building
+  - Worth 2 VP (upgrading 1 VP settlement to 2 VP city)
+  - Increases future resource production
+  - Wheat is your most abundant resource, good trade offer
+
+alternative_strategy: |
+  If Ore trade fails:
+  - Trade Wheat for Sheep (easier to find)
+  - Buy Development Card (1W + 1O + 1S)
+  - Chance of getting VP card or Knight for Largest Army

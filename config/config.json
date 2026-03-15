@@ -1,0 +1,65 @@
+{
+  "ollama": {
+    "base_url": "http://localhost:11434",
+    "model": "llama3.2:latest",
+    "timeout": 180,
+    "models": {
+      "deepseek-r1:8b": {
+        "alias": "deepseek",
+        "description": "DeepSeek reasoning model",
+        "task_affinity": ["reasoning", "analysis", "fix-rules"],
+        "context_window": 8192,
+        "temperature_default": 0.7,
+        "num_predict": -1,
+        "enabled": true
+      },
+      "llama3.2:latest": {
+        "alias": "llama",
+        "description": "Meta Llama 3.2",
+        "task_affinity": ["general", "explanation", "understanding"],
+        "context_window": 8192,
+        "temperature_default": 0.7,
+        "num_predict": -1,
+        "enabled": true
+      },
+      "mistral-nemo:12b": {
+        "alias": "mistral",
+        "description": "Mistral Nemo 12B",
+        "task_affinity": ["generation", "creative", "invent"],
+        "context_window": 8192,
+        "temperature_default": 0.7,
+        "num_predict": -1,
+        "enabled": true
+      },
+      "qwen2.5:latest": {
+        "alias": "qwen",
+        "description": "Qwen 2.5",
+        "task_affinity": ["understanding", "structured", "analyse"],
+        "context_window": 32768,
+        "temperature_default": 0.7,
+        "num_predict": -1,
+        "enabled": true
+      },
+      "gemma3:4b": {
+        "alias": "gemma",
+        "description": "Google Gemma 3 4B",
+        "task_affinity": ["explanation", "understanding", "general"],
+        "context_window": 8192,
+        "temperature_default": 0.7,
+        "num_predict": -1,
+        "enabled": true
+      }
+    },
+    "default_model": "llama3.2:latest",
+    "enable_parallel_comparison": false
+  },
+  "validation": {
+    "enabled": false
+  },
+  "bgg": {
+    "api_token": "a4a7a134-bcd3-44c1-8e3c-72f59670ec26",
+    "cache_dir": "cache/bgg",
+    "cache_expiry_days": 30,
+    "rate_limit_seconds": 5.0
+  }
+}

@@ -1,0 +1,59 @@
+# Kingdomino - Selezione Domino
+# Scenario per testare recommend-move task
+
+game: Kingdomino
+rules_file: rulebooks/kingdomino.pdf
+difficulty: easy
+scenario_id: kingdomino_01
+
+game_state: |
+  Round: 4 of 12
+  Your kingdom (5x5 grid, castle at center marked K):
+
+    1   2   3   4   5
+  +---+---+---+---+---+
+  | W | W |   |   |   |  1
+  +---+---+---+---+---+
+  | F | C |   |   |   |  2
+  +---+---+---+---+---+
+  | C | C | K |   |   |  3
+  +---+---+---+---+---+
+  |   |   |   |   |   |  4
+  +---+---+---+---+---+
+  |   |   |   |   |   |  5
+  +---+---+---+---+---+
+
+  Legend: W=Water, F=Forest, C=Crops, K=Castle
+
+  Available dominos for next round (ordered by value):
+  1. Forest-Forest (2 crowns total) - HIGHEST VALUE
+  2. Water-Mine (1 crown)
+  3. Crops-Crops (0 crowns)
+  4. Plains-Plains (0 crowns)
+
+  Current turn order: You are 2nd to pick.
+  First player took domino #3 (Crops-Crops).
+
+expected_analysis: |
+  Scoring in Kingdomino: territory_size × crown_count
+
+  Current territories:
+  - Water: 2 tiles (row 1), 0 crowns visible
+  - Forest: 1 tile (2,1), 0 crowns visible
+  - Crops: 2 tiles (2,2 and 3,2), 0 crowns visible
+
+  Domino #1 (Forest-Forest, 2 crowns):
+  - Can connect to existing Forest at (2,1)
+  - Would create Forest territory of 3 tiles with 2 crowns = 6 points
+  - Best long-term value
+
+  Domino #2 (Water-Mine, 1 crown):
+  - Water connects to (1,1) and (1,2)
+  - Mine doesn't connect well to anything
+  - Would extend Water but Mine is awkward
+
+  Best choice is #1 for crown value and connectivity.
+
+optimal_move: "Select domino #1 (Forest-Forest with 2 crowns)"
+placement: "Place adjacent to existing Forest tile at (2,1), extending horizontally to (2,0) or vertically to (1,1) if rules allow"
+reasoning: "Maximizes crown count while expanding a connected territory. 2 crowns is the most valuable option available."
