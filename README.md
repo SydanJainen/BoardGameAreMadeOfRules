@@ -36,7 +36,7 @@ ollama pull gemma3:4b
 ## Installation
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/SydanJainen/BoardGameAreMadeOfRules
 cd "Boardgames are made of rules"
 
 pip install -r requirements.txt
