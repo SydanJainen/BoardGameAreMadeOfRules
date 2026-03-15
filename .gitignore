@@ -44,7 +44,6 @@ ENV/
 data/cache/
 data/results/*.json
 cache/
-results/
 
 # Keep directory structure
 !data/cache/.gitkeep
